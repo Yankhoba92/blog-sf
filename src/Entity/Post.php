@@ -34,12 +34,6 @@ class Post
     #[ORM\Column]
     private ?bool $isPublished = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $created_at = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $updated_at = null;
-
     #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?user $author = null;
@@ -50,6 +44,14 @@ class Post
 
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class)]
     private Collection $comments;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $created_at = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $updated_at = null;
+
+
 
     public function __construct()
     {
@@ -133,29 +135,9 @@ class Post
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->created_at;
-    }
+    
 
-    public function setCreatedAt(?\DateTimeImmutable $created_at): static
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updated_at;
-    }
-
-    public function setUpdatedAt(?\DateTimeImmutable $updated_at): static
-    {
-        $this->updated_at = $updated_at;
-
-        return $this;
-    }
+   
 
     public function getAuthor(): ?user
     {
@@ -207,6 +189,30 @@ class Post
                 $comment->setPost(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): static
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updated_at): static
+    {
+        $this->updated_at = $updated_at;
 
         return $this;
     }

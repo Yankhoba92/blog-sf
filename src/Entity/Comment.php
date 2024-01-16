@@ -20,8 +20,7 @@ class Comment
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $created_at = null;
+
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
@@ -30,6 +29,9 @@ class Comment
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
     private ?post $post = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $created_at = null;
 
     public function getId(): ?int
     {
@@ -60,17 +62,7 @@ class Comment
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(?\DateTimeImmutable $created_at): static
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
+    
 
     public function getAuthor(): ?user
     {
@@ -92,6 +84,18 @@ class Comment
     public function setPost(?post $post): static
     {
         $this->post = $post;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): static
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }
