@@ -28,8 +28,6 @@ class Post
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $content = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?float $image = null;
 
     #[ORM\Column]
     private ?bool $isPublished = null;
@@ -50,6 +48,9 @@ class Post
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updated_at = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
 
 
 
@@ -111,17 +112,7 @@ class Post
         return $this;
     }
 
-    public function getImage(): ?float
-    {
-        return $this->image;
-    }
-
-    public function setImage(?float $image): static
-    {
-        $this->image = $image;
-
-        return $this;
-    }
+   
 
     public function isIsPublished(): ?bool
     {
@@ -213,6 +204,18 @@ class Post
     public function setUpdatedAt(\DateTimeInterface $updated_at): static
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }
