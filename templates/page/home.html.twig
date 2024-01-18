@@ -5,10 +5,24 @@
 {% block body %}
 
 {% for item in categories %}
-    <a href={{ path('category', {category: item.name}) }}>{{ item.name }}</a>
+    <a href="{{ path('category', {category: item.name}) }}">{{ item.name }}</a>
 {% endfor %}
 
-{{ dump(posts) }}
+<div class="row">
+    {% for post in posts %}
+        <div class="col-md-2 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.content }}</p>
+                    <img src={post.image} alt=""> 
+                    <a href="{{ path('edit_post', {'id': post.id}) }}" class="btn btn-primary">Edit</a>
+                    <a href="{{ path('delete_post', {'id': post.id}) }}" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
 
 {{ knp_pagination_render(posts) }}
 
