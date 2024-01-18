@@ -9,7 +9,7 @@
         <div class="card-body">
         <h5 class="card-title">{{ post.title }}</h5>
         <p class="card-text">{{ post.title }}</p>
-        <a href="#" class="btn btn-primary">Edit</a>
+                    <a href="{{ path('post_edit', {'title': post.title}) }}" class="btn btn-primary">Edit</a>
         <a href="#" class="btn btn-danger">Delete</a>
     </div>
 
